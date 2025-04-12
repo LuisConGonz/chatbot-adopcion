@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot de Adopción</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, button { padding: 10px; margin: 10px 0; }
+        #respuesta { margin-top: 20px; padding: 15px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Chatbot de Adopción</h1>
+    <input type="text" id="mensaje" placeholder="Pregunta algo...">
+    <button onclick="enviarMensaje()">Enviar</button>
+    <div id="respuesta"></div>
+
+    <script>
+        async function enviarMensaje() {
+            const mensaje = document.getElementById("mensaje").value;
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mensaje })
+            });
+            const data = await response.json();
+            document.getElementById("respuesta").innerText = data.respuesta;
+        }
+    </script>
+</body>
+</html>
